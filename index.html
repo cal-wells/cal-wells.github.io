@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callum Wells | The Accountant Who Codes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0f172a; /* Dark Slate - Like a code editor */
+            --card-bg: #1e293b;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #10b981; /* Emerald Green - Finance meets Code */
+            --accent-hover: #34d399;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .mono { font-family: 'Fira Code', monospace; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo { font-size: 1.2rem; font-weight: 700; color: var(--accent); }
+        
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a { font-size: 0.9rem; color: var(--text-muted); }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        .btn:hover { background: rgba(16, 185, 129, 0.1); }
+        .btn-fill { background: var(--accent); color: var(--bg-color); }
+        .btn-fill:hover { background: var(--accent-hover); color: var(--bg-color); }
+
+        /* --- SECTIONS GENERAL --- */
+        section { padding: 5rem 10%; }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 200px;
+            height: 1px;
+            background: var(--card-bg);
+            margin-left: 20px;
+        }
+        .section-title span { color: var(--accent); margin-right: 10px; }
+
+        /* --- ABOUT --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 4rem;
+        }
+        .skills-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .skills-list li {
+            position: relative;
+            padding-left: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .skills-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* --- THE LAB (PROJECTS) --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: transform 0.2s;
+            border: 1px solid transparent;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        .project-card h3 { margin-bottom: 1rem; color: var(--text-main); }
+        .project-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .project-tech {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 15px;
+        }
+
+        /* --- RESUME --- */
+        .job { margin-bottom: 3rem; }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        .job-title { font-size: 1.3rem; font-weight: 600; color: var(--text-main); }
+        .company { color: var(--accent); font-family: 'Fira Code', monospace; }
+        .date { font-family: 'Fira Code', monospace; font-size: 0.9rem; color: var(--text-muted); }
+        .job-details li {
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            list-style: square; /* Default bullet for now */
+            margin-left: 1.5rem;
+        }
+
+        /* --- CONTACT --- */
+        .contact-box {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-box h2 { font-size: 3rem; margin-bottom: 1.5rem; }
+        .contact-box p { margin-bottom: 2rem; color: var(--text-muted); }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .nav-links { display: none; } /* Simplified for MVP */
+            section { padding: 4rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">CW.</div>
+        <div class="nav-links">
+            <a href="#about"><span style="color:var(--accent)">01.</span> About</a>
+            <a href="#lab"><span style="color:var(--accent)">02.</span> The Lab</a>
+            <a href="#resume"><span style="color:var(--accent)">03.</span> Resume</a>
+            <a href="#contact"><span style="color:var(--accent)">04.</span> Contact</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="home">
+        <p class="mono" style="color: var(--accent); margin-bottom: 1rem;">Hi, my name is</p>
+        <h1>Callum Wells, CA.</h1>
+        <h1 style="color: var(--text-muted);">The Accountant who Codes.</h1>
+        <p>
+            I bridge the gap between traditional accounting rigor and modern data science. 
+            By combining FP&A strategy with Python automation, I build finance functions that are faster, smarter, and scalable.
+        </p>
+        <div style="margin-top: 1rem;">
+            <a href="#about" class="btn btn-fill">Read My Story</a>
+            <a href="#resume" class="btn">View Resume</a>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title"><span>01.</span> From Big 4 Discipline to Big Data Analysis</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    My career began in the deep end of traditional finance. Training as a Chartered Accountant at <strong>EY</strong>, I managed large-scale assurance engagements for FTSE 100 banks. That experience taught me the importance of rigor, accuracy, and how to navigate the pressure of a deadline.
+                </p>
+                <br>
+                <p>
+                    But I also noticed a problem: Finance teams were spending too much time <em>gathering</em> data and not enough time <em>analyzing</em> it.
+                </p>
+                <br>
+                <p>
+                    <strong>The Pivot:</strong> I decided to stop fighting spreadsheets and start engineering solutions. I taught myself Python and SQL, realizing that the repetitive tasks slowing us down could be automated. Today, I operate at the intersection of Finance and Tech. I don't just build budgets; I build the systems that make budgeting easier.
+                </p>
+                <br>
+                <p>Here are a few technologies I've been working with recently:</p>
+                <ul class="skills-list">
+                    <li>Python (Pandas)</li>
+                    <li>Datarails</li>
+                    <li>SQL / BigQuery</li>
+                    <li>PowerBI</li>
+                    <li>Advanced Excel</li>
+                    <li>Alteryx</li>
+                </ul>
+            </div>
+            <div class="about-img" style="background: var(--card-bg); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--accent);">
+                <i class="fas fa-chart-line fa-5x"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="lab">
+        <h2 class="section-title"><span>02.</span> The Lab</h2>
+        <p style="margin-bottom: 2rem; max-width: 600px;">
+            This is my sandbox. While my professional work focuses on sensitive financial modeling and internal automation, this space is dedicated to my personal data experiments.
+        </p>
+        
+        <div class="project-grid">
+            <div class="project-card">
+                <div style="text-align: right; margin-bottom: 10px; color: var(--accent);"><i class="fas fa-running"></i></div>
+                <h3>The Quantified Runner</h3>
+                <p>
+                    Breaking down my marathon training blocks using SQL to visualize pace progression, heart rate variability, and recovery metrics.
+                </p>
+                <div class="project-tech">
+                    <span>SQL</span>
+                    <span>BigQuery</span>
+                    <span>Viz</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div style="text-align: right; margin-bottom: 10px; color: var(--accent);"><i class="fab fa-bitcoin"></i></div>
+                <h3>Bitcoin Market Analysis</h3>
+                <p>
+                    A Python-based analysis of market trends, using Pandas to clean historical data and visualize volatility.
+                </p>
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>Pandas</span>
+                    <span>API</span>
+                </div>
+            </div>
+
+             <div class="project-card" style="border: 1px dashed var(--text-muted); display: flex; align-items: center; justify-content: center;">
+                <p class="mono">More Coming Soon...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <h2 class="section-title"><span>03.</span> Experience</h2>
+        
+        <div class="job">
+            <div class="job-header">
+                <div>
+                    <span class="job-title">FP&A Manager</span>
+                    <span class="company"> @ Kingswood Group</span>
+                </div>
+                <span class="date">Jan 2025 – Present</span>
+            </div>
+            <ul class="job-details">
+                <li>Spearheaded the end-to-end implementation of Datarails, integrating Xero API data flows and reducing month-end reporting cycles by ~3 days.</li>
+                <li>Developed Python scripts to automate complex client losses reporting and utilised AI tools (Cursor/Antigravity) to support decision-making.</li>
+                <li>Lead monthly business partnering with 5 Department Heads and own the production of the ExCo Finance Pack for the Board.</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div>
+                    <span class="job-title">Assistant Manager</span>
+                    <span class="company"> @ EY (Banking & Capital Markets)</span>
+                </div>
+                <span class="date">Sept 2020 – Jan 2025</span>
+            </div>
+            <ul class="job-details">
+                <li>Rapidly promoted through the firm, leading large-scale assurance engagements for FTSE 100 and Challenger Banks.</li>
+                <li>Managed and coached teams of up to 10 associates, overseeing work allocation and delivery of critical milestones.</li>
+                <li>Utilised Alteryx and Spotfire to analyse datasets of 200k+ trades, identifying valuation risks missed by traditional sampling.</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-header">
+                <div>
+                    <span class="job-title">Portfolio Management Intern</span>
+                    <span class="company"> @ Guinness Ventures</span>
+                </div>
+                <span class="date">Oct 2019 – Jan 2020</span>
+            </div>
+            <ul class="job-details">
+                <li>Prepared monthly performance packs for 25 portfolio companies, presenting KPI analysis directly to the Investment Committee.</li>
+                <li>Conducted sensitivity analysis on inbound investment opportunities to project ROI for early-stage ventures.</li>
+            </ul>
+        </div>
+
+        <h3 class="mono" style="color: var(--accent); margin-top: 2rem;">Education & Qualifications</h3>
+        <ul style="margin-top: 1rem; color: var(--text-muted);">
+            <li><strong>ICAS:</strong> Chartered Accountant (CA) - All first-time passes [2020 – 2023]</li>
+            <li><strong>University of Bath:</strong> BSc (Hons) Economics – First-Class Honours [2015 – 2019]</li>
+        </ul>
+
+    </section>
+
+    <section id="contact">
+        <div class="contact-box">
+            <p class="mono" style="color: var(--accent);">04. What's Next?</p>
+            <h2>Let's Connect</h2>
+            <p>
+                Whether you want to discuss finance automation, Python for accounting, or just compare running times, I'd love to hear from you.
+            </p>
+            <a href="mailto:callumwells23@gmail.com" class="btn btn-fill">Say Hello</a>
+        </div>
+    </section>
+
+    <footer>
+        <p class="mono">Designed & Built by Callum Wells</p>
+        <div style="margin-top: 10px;">
+            <a href="#" style="margin: 0 10px;"><i class="fab fa-github"></i></a>
+            <a href="#" style="margin: 0 10px;"><i class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>
