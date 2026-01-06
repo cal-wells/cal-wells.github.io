@@ -1,2 +1,2 @@
-# callumwells.github.io
+# cal-wells.github.io
 Personal Website
